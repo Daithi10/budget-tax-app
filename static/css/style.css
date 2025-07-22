@@ -1,0 +1,211 @@
+/* Reset basic browser styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Shared form container for login and register */
+.auth-container {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+}
+.welcome-container {
+  min-height: calc(100vh - 60px - 40px); /* full height minus navbar & footer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertical center */
+  align-items: center;      /* horizontal center */
+  text-align: center;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #003866;
+  margin-top: 60px; /* push below fixed navbar */
+}
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #003866;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  background-color: #003866;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005c99;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+/* Footer styling */
+footer {
+  background-color: #003866;
+  color: white;
+  text-align: center;
+  padding: 12px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+/* To avoid overlap with fixed footer */
+main.container {
+  padding-bottom: 40px; /* height of footer + some space */
+}
+
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
+.navbar {
+  background-color: #003866;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.navbar {
+  background-color: #003866;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;  /* <-- spread items left and right */
+  align-items: center;             /* vertically center items */
+  z-index: 1000;
+}
+
+/* Instead of flex on ul, just keep inline list */
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+/* Navbar links styling */
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  background-color: #005f99;
+}
+..signup-prompt {
+  max-width: 400px;        /* Limit width for better readability */
+  margin: 2rem auto;       /* Center horizontally with vertical spacing */
+  padding: 1.5rem;
+  background-color: #f0f8ff;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.signup-prompt h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  color: #003866;          /* Dark blue to match theme */
+}
+
+.signup-prompt p {
+  margin-bottom: 1rem;
+  color: #003866;
+  font-size: 1rem;
+}
+
+.signup-prompt .btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  background-color: #003866;  /* Dark blue */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-prompt .btn:hover,
+.signup-prompt .btn:focus {
+  background-color: #005b9a;  /* Slightly lighter blue on hover */
+  outline: none;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 480px) {
+  .signup-prompt {
+    max-width: 90%;
+    padding: 1rem;
+  }
+
+  .signup-prompt .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
+}
