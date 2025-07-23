@@ -1,8 +1,15 @@
 {% extends "base.html" %}
-
-{% block title %}Saved Budgets{% endblock %}
-
 {% block content %}
   <h2>Saved Budgets</h2>
-  <p>This page will display saved budgets.</p>
+
+  {% if budgets %}
+    <ul>
+      {% for budget in budgets %}
+        <li>{{ budget }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No saved budgets available.</p>
+  {% endif %}
+
 {% endblock %}

@@ -7,7 +7,7 @@ app.secret_key = 'your_secret_key_here'  # Replace with a secure random string f
 users = {}
 
 # This will store budget data temporarily (in-memory)
-saved_budgets = []
+saved_budgets = {}  # correct: username -> list of budgets
 
 # Budget form route (handles GET and POST)
 @app.route("/budget", methods=["GET", "POST"])
@@ -15,6 +15,7 @@ def budget():
     residual_income = None
     savings_amount = None
     savings_percent = None
+    income = rent = groceries = transport = utilities = other = 0  # Ensure these are always defined
     username = session.get("username", None)
 
     if request.method == "POST":
@@ -34,6 +35,20 @@ def budget():
                 total_expenses = rent + groceries + transport + utilities + other
                 residual_income = round(income - total_expenses, 2)
 
+                # ✅ Budget saving logic
+                if request.form.get("action") == "save" and residual_income is not None:
+                    if username:
+                        if username not in saved_budgets:
+                            saved_budgets[username] = []
+                        saved_budgets[username].append({
+                            "income": income,
+                            "expenses": total_expenses,
+                            "residual_income": residual_income
+                        })
+                        flash("Budget saved successfully!")
+                    else:
+                        flash("Please log in to save your budget.")
+
             except ValueError:
                 flash("Please enter valid numeric values.")
 
@@ -44,14 +59,17 @@ def budget():
         savings_percent=savings_percent,
         username=username
     )
+
+
 # View saved budgets
-saved_budgets = []
-@app.route('/saved-budgets')
-def saved():
+@app.route('/saved_budgets')
+def saved_budgets_view():
     if 'username' not in session:
-        flash('Please log in to view saved budgets.')
+        flash("Please log in to view your saved budgets.")
         return redirect(url_for('login'))
-    return render_template('saved_budgets.html', budgets=saved_budgets)
+    user_budgets = saved_budgets.get(session['username'], [])  # Safely get budgets for user
+    return render_template('saved_budgets.html', budgets=user_budgets)
+
 
 
 @app.route("/tax", methods=["GET", "POST"])
@@ -132,11 +150,18 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash("You have been logged out.")
+    return redirect(url_for('login'))
+
+
 @app.route('/')
 def index():
     # You could check if user is logged in, then redirect accordingly
     if 'username' in session:
-        return redirect(url_for('dashboard'))  # or wherever logged-in users go
+        return redirect(url_for('budget'))  # or wherever logged-in users go
     return render_template('index.html')
 
 users = {}  # In-memory user store: {'username': 'password'}
@@ -181,6 +206,48 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html')
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        username = request.form.get('username')
+
+        if username in users:
+            question = users[username]['security_question']
+            return render_template('reset_password.html', username=username, question=question)
+        else:
+            flash("Username not found.")
+            return render_template('forgot_password.html')
+
+    return render_template('forgot_password.html')
+
+@app.route('/reset_password', methods=['POST'])
+def reset_password():
+    username = request.form.get('username')
+    answer = request.form.get('security_answer', '').strip().lower()
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+
+    if username not in users:
+        flash("User not found.")
+        return redirect(url_for('forgot_password'))
+
+    stored_answer = users[username]['security_answer'].strip().lower()
+
+    if answer != stored_answer:
+        flash("Security answer is incorrect.")
+        return redirect(url_for('forgot_password'))
+
+    if new_password != confirm_password:
+        flash("Passwords do not match.")
+        return redirect(url_for('forgot_password'))
+
+    # Update password
+    users[username]['password'] = generate_password_hash(new_password)
+    flash("Password reset successful. Please log in.")
+    return redirect(url_for('login'))
+
+
 if __name__ == '__main__':
     print("Starting Flask app... Open http://127.0.0.1:5000/ in your browser")
     app.run(debug=True)

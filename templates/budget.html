@@ -40,6 +40,8 @@
           <input type="number" name="savings" min="0" max="100" required>
           <input type="hidden" name="residual_income" value="{{ residual_income }}">
           <button type="submit">Calculate Savings</button>
+          <input type="hidden" name="action" value="save">
+          <button type="submit">Save Budget</button>
         </form>
       </div>
     {% endif %}
