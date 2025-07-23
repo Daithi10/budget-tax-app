@@ -156,7 +156,7 @@ main.container {
 .navbar ul li a:hover {
   background-color: #005f99;
 }
-..signup-prompt {
+.signup-prompt {
   max-width: 400px;        /* Limit width for better readability */
   margin: 2rem auto;       /* Center horizontally with vertical spacing */
   padding: 1.5rem;
@@ -208,4 +208,26 @@ main.container {
     padding: 0.6rem 1.2rem;
     font-size: 1rem;
   }
+}
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.required {
+  color: red;
+}
+.error-message {
+  color: #e74c3c;
+  background: #fcebea;
+  padding: 10px;
+  border: 1px solid #e0b4b4;
+  border-radius: 5px;
+  margin-bottom: 15px;
 }

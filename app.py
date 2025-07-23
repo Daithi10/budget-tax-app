@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Replace with a secure random string for the session
+# Simulated in-memory user store
+users = {}
 
 # This will store budget data temporarily (in-memory)
 saved_budgets = []
@@ -119,17 +122,15 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        if username in users and users[username] == password:
+        # Securely check if username exists AND password is correct
+        if username in users and check_password_hash(users[username]['password'], password):
             session['username'] = username
-            return redirect(url_for('budget'))  # redirect to budget page after login
+            return redirect(url_for('budget'))  # Redirect to budget page
         else:
             error = 'Invalid username or password'
             return render_template('login.html', error=error)
+
     return render_template('login.html')
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    return redirect(url_for('login'))
 
 @app.route('/')
 def index():
@@ -143,9 +144,18 @@ users = {}  # In-memory user store: {'username': 'password'}
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form.get('username')
+        fullname = request.form.get('fullname', '').strip()
+        email = request.form.get('email', '').strip()
+        username = request.form.get('username', '').strip()
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+        security_question = request.form.get('security_question')
+        security_answer = request.form.get('security_answer', '').strip()
+
+        # Basic validations
+        if not email or not username or not password or not confirm_password or not security_question or not security_answer:
+            error = 'Please fill in all required fields.'
+            return render_template('register.html', error=error)
 
         if username in users:
             error = 'Username already exists.'
@@ -155,13 +165,22 @@ def register():
             error = 'Passwords do not match.'
             return render_template('register.html', error=error)
 
-        # Save the user
-        users[username] = password
+        # Hash the password
+        hashed_password = generate_password_hash(password)
+
+        # Save user info (example user dict)
+        users[username] = {
+            'fullname': fullname,
+            'email': email,
+            'password': hashed_password,
+            'security_question': security_question,
+            'security_answer': security_answer
+        }
+
         flash('Registration successful. Please login.')
         return redirect(url_for('login'))
 
     return render_template('register.html')
-
 if __name__ == '__main__':
     print("Starting Flask app... Open http://127.0.0.1:5000/ in your browser")
     app.run(debug=True)

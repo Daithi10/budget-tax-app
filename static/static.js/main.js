@@ -39,3 +39,30 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('form');
+  const email = document.getElementById('email');
+  const password = document.getElementById('password');
+  const confirmPassword = document.getElementById('confirm_password');
+
+  if (form && email && password && confirmPassword) {
+    form.addEventListener('submit', function (e) {
+      // Password match check
+      if (password.value !== confirmPassword.value) {
+        e.preventDefault();
+        alert("Passwords do not match.");
+        return;
+      }
+
+      // Basic email format check
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email.value)) {
+        e.preventDefault();
+        alert("Please enter a valid email address.");
+        return;
+      }
+    });
+  }
+});
+
+
