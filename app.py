@@ -257,7 +257,6 @@ def contact():
     return render_template('contact.html')
 
 
-
 if __name__ == '__main__':
     print("Starting Flask app... Open http://127.0.0.1:5000/ in your browser")
     app.run(debug=True)
