@@ -59,8 +59,6 @@ def budget():
         savings_percent=savings_percent,
         username=username
     )
-
-
 # View saved budgets
 @app.route('/saved_budgets')
 def saved_budgets_view():
@@ -133,7 +131,6 @@ def tax():
 
     return render_template("tax.html", result=result, salary=salary, breakdown=breakdown)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -155,7 +152,6 @@ def logout():
     session.pop('username', None)
     flash("You have been logged out.")
     return redirect(url_for('login'))
-
 
 @app.route('/')
 def index():
@@ -246,6 +242,20 @@ def reset_password():
     users[username]['password'] = generate_password_hash(new_password)
     flash("Password reset successful. Please log in.")
     return redirect(url_for('login'))
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+
+        # Placeholder for now – you can add email functionality or database saving later
+        flash('Thank you for your message! We will get back to you shortly.')
+        return redirect(url_for('contact'))
+
+    return render_template('contact.html')
+
 
 
 if __name__ == '__main__':

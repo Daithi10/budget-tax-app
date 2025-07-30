@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("JavaScript is connected ✅");
+    console.log("JavaScript is connected ");
 
     // Add your interactive code here...
 });
@@ -55,6 +55,30 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       // Basic email format check
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email.value)) {
+        e.preventDefault();
+        alert("Please enter a valid email address.");
+        return;
+      }
+    });
+  }
+});
+document.addEventListener('DOMContentLoaded', function () {
+  const contactForm = document.querySelector('.contact-form');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      const name = contactForm.querySelector('#name');
+      const email = contactForm.querySelector('#email');
+      const message = contactForm.querySelector('#message');
+
+      if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
+        e.preventDefault();
+        alert("Please fill in all the fields.");
+        return;
+      }
+
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email.value)) {
         e.preventDefault();

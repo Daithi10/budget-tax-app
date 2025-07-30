@@ -19,6 +19,7 @@
     <li><a href="{{ url_for('budget') }}">Budget</a></li>
     <li><a href="{{ url_for('saved_budgets_view') }}">Saved Budgets</a></li>
     <li><a href="{{ url_for('tax') }}">Tax Calculator</a></li>
+    <li><a href="{{ url_for('contact') }}">Contact</a></li>
    {% if session.get('username') %}
   <li><a href="{{ url_for('logout') }}">Logout</a></li>
 {% else %}
