@@ -98,8 +98,6 @@ footer {
 main.container {
   padding-bottom: 40px; /* height of footer + some space */
 }
-
-
 /* Responsive Design */
 @media (max-width: 480px) {
   .auth-container {
@@ -114,7 +112,6 @@ main.container {
     font-size: 14px;
   }
 }
-/* Base navbar styles */
 /* Base navbar styles */
 .navbar {
   background-color: #003866;
@@ -143,7 +140,7 @@ main.container {
   background-color: white;
 }
 
-/* Default nav links display */
+/* Default nav links display (desktop) */
 .navbar ul {
   list-style-type: none;
   margin: 0;
@@ -166,18 +163,18 @@ main.container {
   background-color: #005f99;
 }
 
-/* Responsive behavior */
+/* Responsive behavior for mobile */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
   }
 
   .navbar ul {
-    display: none;
-    flex-direction: column;
+    display: none;               /* hide menu by default */
+    flex-direction: column;      /* stack items vertically */
     position: absolute;
-    top: 60px;
-    right: 20px;
+    top: 60px;                   /* adjust as needed */
+    right: 20px;                 /* align menu */
     background-color: #003866;
     padding: 10px;
     border-radius: 8px;
@@ -186,7 +183,7 @@ main.container {
   }
 
   .navbar ul.active {
-    display: flex;
+    display: flex;               /* show menu when active */
   }
 }
 .signup-prompt {
