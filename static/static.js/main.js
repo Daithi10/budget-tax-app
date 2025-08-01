@@ -1,18 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("JavaScript is connected ");
-
-    // Add your interactive code here...
-});
-
-// main.js
-
-// Optional: Show/hide tax credits field if user checks a box
 document.addEventListener('DOMContentLoaded', function () {
+  console.log("JavaScript is connected");
+
+  // ===============================
+  // NAV TOGGLE FOR MOBILE
+  // ===============================
+  const hamburger = document.querySelector('.hamburger');
+  const menu = document.querySelector('.navbar ul');
+
+  if (hamburger && menu) {
+    hamburger.addEventListener('click', function () {
+      menu.classList.toggle('active');
+    });
+  }
+
+  // ===============================
+  // CHILDREN DETAILS TOGGLE
+  // ===============================
   const hasChildrenCheckbox = document.querySelector('#has_children');
   const childrenDetails = document.querySelector('#children_details');
 
   if (hasChildrenCheckbox && childrenDetails) {
-    // Initially hide children details if unchecked
     childrenDetails.style.display = hasChildrenCheckbox.checked ? 'block' : 'none';
 
     hasChildrenCheckbox.addEventListener('change', function () {
@@ -20,7 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Optional: Show suggested savings when budget is calculated
+  // ===============================
+  // SAVINGS SLIDER CALCULATION
+  // ===============================
   const savingsSlider = document.querySelector('#savings_percent');
   const savingsLabel = document.querySelector('#savings_label');
   const residualInput = document.querySelector('#residual_income');
@@ -38,23 +47,23 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-});
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.querySelector('form');
+
+  // ===============================
+  // REGISTER FORM VALIDATION
+  // ===============================
+  const registerForm = document.querySelector('form');
   const email = document.getElementById('email');
   const password = document.getElementById('password');
   const confirmPassword = document.getElementById('confirm_password');
 
-  if (form && email && password && confirmPassword) {
-    form.addEventListener('submit', function (e) {
-      // Password match check
+  if (registerForm && email && password && confirmPassword) {
+    registerForm.addEventListener('submit', function (e) {
       if (password.value !== confirmPassword.value) {
         e.preventDefault();
         alert("Passwords do not match.");
         return;
       }
 
-      // Basic email format check
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email.value)) {
         e.preventDefault();
@@ -63,8 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-});
-document.addEventListener('DOMContentLoaded', function () {
+
+  // ===============================
+  // CONTACT FORM VALIDATION
+  // ===============================
   const contactForm = document.querySelector('.contact-form');
 
   if (contactForm) {
@@ -88,7 +99,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-function toggleMenu() {
-  const menu = document.querySelector('.navbar ul');
-  menu.classList.toggle('active');
-}
+
