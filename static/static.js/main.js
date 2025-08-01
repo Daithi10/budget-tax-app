@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   console.log("JavaScript is connected");
 
-  // ===============================
-  // NAV TOGGLE FOR MOBILE
-  // ===============================
+  // === 1. Hamburger menu toggle ===
   const hamburger = document.querySelector('.hamburger');
   const menu = document.querySelector('.navbar ul');
 
@@ -13,9 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===============================
-  // CHILDREN DETAILS TOGGLE
-  // ===============================
+  // === 2. Show/hide children details ===
   const hasChildrenCheckbox = document.querySelector('#has_children');
   const childrenDetails = document.querySelector('#children_details');
 
@@ -27,9 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===============================
-  // SAVINGS SLIDER CALCULATION
-  // ===============================
+  // === 3. Budget savings slider ===
   const savingsSlider = document.querySelector('#savings_percent');
   const savingsLabel = document.querySelector('#savings_label');
   const residualInput = document.querySelector('#residual_income');
@@ -48,16 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===============================
-  // REGISTER FORM VALIDATION
-  // ===============================
-  const registerForm = document.querySelector('form');
+  // === 4. Registration form validation ===
+  const form = document.querySelector('form');
   const email = document.getElementById('email');
   const password = document.getElementById('password');
   const confirmPassword = document.getElementById('confirm_password');
 
-  if (registerForm && email && password && confirmPassword) {
-    registerForm.addEventListener('submit', function (e) {
+  if (form && email && password && confirmPassword) {
+    form.addEventListener('submit', function (e) {
       if (password.value !== confirmPassword.value) {
         e.preventDefault();
         alert("Passwords do not match.");
@@ -73,9 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ===============================
-  // CONTACT FORM VALIDATION
-  // ===============================
+  // === 5. Contact form validation ===
   const contactForm = document.querySelector('.contact-form');
 
   if (contactForm) {
@@ -99,4 +89,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-
