@@ -114,13 +114,7 @@ main.container {
     font-size: 14px;
   }
 }
-.navbar {
-  background-color: #003866;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
+/* Base navbar styles */
 .navbar {
   background-color: #003866;
   padding: 10px 20px;
@@ -129,21 +123,19 @@ main.container {
   left: 0;
   right: 0;
   display: flex;
-  justify-content: space-between;  /* <-- spread items left and right */
-  align-items: center;             /* vertically center items */
+  justify-content: space-between;
+  align-items: center;
   z-index: 1000;
 }
 
-/* Instead of flex on ul, just keep inline list */
 .navbar ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   gap: 20px;
+  margin: 0;
+  padding: 0;
 }
 
-/* Navbar links styling */
 .navbar ul li a {
   color: white;
   text-decoration: none;
@@ -155,6 +147,48 @@ main.container {
 
 .navbar ul li a:hover {
   background-color: #005f99;
+}
+
+/* Hamburger Icon */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    background-color: #003866;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    display: none;
+    padding: 10px 0;
+  }
+
+  .navbar ul.show {
+    display: flex;
+  }
+
+  .navbar ul li {
+    text-align: center;
+    width: 100%;
+  }
 }
 .signup-prompt {
   max-width: 400px;        /* Limit width for better readability */
